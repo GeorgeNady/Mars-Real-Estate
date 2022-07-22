@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2018, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="bAdapter"
+            type="com.example.android.marsrealestate.overview.adapter.MarsPropertyAdapter" />
+
+        <variable
+            name="bLayoutManager"
+            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />
+
+        <variable
+            name="overviewViewModel"
+            type="com.example.android.marsrealestate.overview.OverviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.android.marsrealestate.overview.OverviewFragment">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPhotosGrid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adapter="@{bAdapter}"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/padding_default"
+            android:paddingTop="70dp"
+            android:visibility="@{overviewViewModel.showRecyclerViewEvent ? View.VISIBLE : View.GONE}"
+            app:layoutManager="@{bLayoutManager}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="16"
+            tools:listitem="@layout/item_mars_proerty_grid" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_connection_error"
+            android:visibility="@{overviewViewModel.showErrorMessageEvent ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/loading_animation"
+            android:visibility="@{overviewViewModel.showProgressBarEvent ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="#26000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/btnOneSpans"
+            style="@style/ClickableIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:onClick="@{() -> overviewViewModel.setGridLayoutSpans(1)}"
+            android:src="@drawable/ic_baseline_looks_one_24"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toStartOf="@+id/btnTwoSpans"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@id/view" />
+
+        <ImageView
+            android:id="@+id/btnTwoSpans"
+            style="@style/ClickableIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> overviewViewModel.setGridLayoutSpans(2)}"
+            android:src="@drawable/ic_baseline_looks_two_24"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toStartOf="@+id/btnThreeSpans"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnOneSpans"
+            app:layout_constraintTop_toTopOf="@id/view"
+            tools:layout_editor_absoluteY="7dp" />
+
+        <ImageView
+            android:id="@+id/btnThreeSpans"
+            style="@style/ClickableIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> overviewViewModel.setGridLayoutSpans(3)}"
+            android:src="@drawable/ic_baseline_looks_3_24"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toStartOf="@+id/btnFoureSpans"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnTwoSpans"
+            app:layout_constraintTop_toTopOf="@id/view"
+            tools:layout_editor_absoluteY="7dp" />
+
+        <ImageView
+            android:id="@+id/btnFoureSpans"
+            style="@style/ClickableIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> overviewViewModel.setGridLayoutSpans(4)}"
+            android:src="@drawable/ic_baseline_looks_4_24"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnThreeSpans"
+            app:layout_constraintTop_toTopOf="@id/view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
